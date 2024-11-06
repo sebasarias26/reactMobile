@@ -29,9 +29,9 @@ function Menu() {
                     </Link>
                     </li>
                     <li className="nav-item">
-                    <a className="nav-link" href="#">
-                        Features
-                    </a>
+                    <Link className="nav-link" to="/usuario">
+                        Usuarios
+                    </Link>
                     </li>
                     <li className="nav-item">
                     <a className="nav-link" href="#">

@@ -1,0 +1,11 @@
+.img-fluid {
+    border-radius: 100%;
+}
+
+.containerP {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3em;
+}
