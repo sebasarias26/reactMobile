@@ -12,6 +12,20 @@ function FormUser() {
     const [fechaRegistro, setFechaRegistro] = useState('');
     const [telefonoUsuario, setTelefonoUsuario] = useState('');
 
+    function procesarFormulario(event){
+        event.preventDefault(); // Evitar que el formulario se recargue
+        let datosUsuario = {
+            nombre: nombreUsuario,
+            edad: edadUsuario,
+            correo: correoUsuario,
+            contraseña: contraseñaUsuario,
+            ciudad: ciudadUsuario,
+            gechaRegistro: fechaRegistro,
+            telefono: telefonoUsuario
+        }
+        console.log(datosUsuario); // Para ver los datos que se están enviando al procesar el formulario
+    }
+
   return (
     <>
         <br />
@@ -19,13 +33,18 @@ function FormUser() {
             <div className="row">
                 <div className="col-12">
                     <h3 className="registerUser">Registro de Usuario</h3>
-                    <form className='p-5 border rounded shadow'>
+                    <form className='p-5 border rounded shadow' onSubmit={procesarFormulario}>
                         <div className="row">
                             <div className="col-12">
                                 
                                 <label className='form-label'>Nombre: </label>
-                                <input type="text" className="form-control" />
-
+                                <input 
+                                    type="text" 
+                                    className="form-control"
+                                    value={nombreUsuario}
+                                    onChange={(event) =>
+                                     setNombreUsuario(event.target.value)}
+                                />
 
                             </div>
                         </div>
@@ -34,13 +53,25 @@ function FormUser() {
                             <div className="col-12 col-md-6">
 
                                 <label className='form-label'>Edad:</label>
-                                <input type="text" className="form-control" />
+                                <input 
+                                    type="text" 
+                                    className="form-control" 
+                                    value={edadUsuario}
+                                    onChange={(event) =>
+                                        setEdadUsuario(event.target.value)}
+                                />
 
                             </div>
                             <div className="col-12 col-md-6">
                                 
                                 <label className='form-label'>Correo:</label>
-                                <input type="mail" className="form-control" />
+                                <input 
+                                    type="mail" 
+                                    className="form-control" 
+                                    value={correoUsuario}
+                                    onChange={(event) =>
+                                        setCorreoUsuario(event.target.value)}    
+                                />
 
                             </div>
                         </div>
@@ -50,13 +81,25 @@ function FormUser() {
                             <div className="col-12 col-md-6">
 
                                 <label className='form-label'>Contraseña:</label>
-                                <input type="password" className="form-control" />
+                                <input 
+                                    type="password" 
+                                    className="form-control" 
+                                    value={contraseñaUsuario}
+                                    onChange={(event) =>
+                                        setContraseñaUsuario(event.target.value)}    
+                                />
 
                             </div>
                             <div className="col-12 col-md-6">
                                 
                                 <label className='form-label'>Ciudad:</label>
-                                <input type="text" className="form-control" />
+                                <input 
+                                    type="text" 
+                                    className="form-control" 
+                                    value={ciudadUsuario}
+                                    onChange={(event) =>
+                                        setCiudadUsuario(event.target.value)}    
+                                />
 
                             </div>
                         </div>
@@ -65,13 +108,25 @@ function FormUser() {
                             <div className="col-12 col-md-6">
 
                                 <label className='form-label'>Fecha de Registro:</label>
-                                <input type="text" className="form-control" />
+                                <input 
+                                    type="text" 
+                                    className="form-control" 
+                                    value={fechaRegistro}
+                                    onChange={(event) =>
+                                        setFechaRegistro(event.target.value)}    
+                                />
 
                             </div>
                             <div className="col-12 col-md-6">
                                 
                                 <label className='form-label'>Teléfono:</label>
-                                <input type="number" className="form-control" />
+                                <input 
+                                    type="number" 
+                                    className="form-control" 
+                                    value={telefonoUsuario}
+                                    onChange={(event) =>
+                                        setTelefonoUsuario(event.target.value)}    
+                                />
 
                             </div>
                         </div>
