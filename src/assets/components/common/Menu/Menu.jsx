@@ -34,9 +34,9 @@ function Menu() {
                     </Link>
                     </li>
                     <li className="nav-item">
-                    <a className="nav-link" href="#">
-                        Pricing
-                    </a>
+                    <Link className="nav-link" to="/listausuario">
+                        Lista Usuarios
+                    </Link>
                     </li>
                     <li className="nav-item">
                     <a className="nav-link disabled" aria-disabled="true">
