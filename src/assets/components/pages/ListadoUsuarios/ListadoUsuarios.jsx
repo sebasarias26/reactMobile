@@ -1,81 +1,59 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
+import { buscarUsuario } from '../../../../services/serviciosUsuario.js';
 
 function ListadoUsuarios() {
-    //Simulando un conjunto de datos que viene del Backend
-    //El use effect se activa cuando se ejecuta una acción, está alerta al momento en que un estado cambie
+    // Simulando un conjunto de datos que viene del Backend
+    // El useEffect se activa cuando se ejecuta una acción, está alerta al momento en que un estado cambie
     
-    let usuarios=[
-        {   id: 5,
-            nombre: "Sebastian Poveda Arias",
-            telefono: "52263985",
-            ciudad: "Medallo"
-        },
-        {
-            id: 6,
-            nombre: "Andrea Sandoval",
-            telefono: "52263985",
-            ciudad: "Medallo"
-        },
-        {
-            id: 7,
-            nombre: "Maria Perez",
-            telefono: "52263985",
-            ciudad: "Medallo"
-        },
-        {
-            id: 8,
-            nombre: "Juan Perez",
-            telefono: "52263985",
-            ciudad: "Medallo"
-        },
-        {
-            id: 9,
-            nombre: "Pedro Perez",
-            telefono: "52263985",
-            ciudad: "Medallo"
-        }
+    let usuarios = [
+        { id: 5, nombre: "Sebastian Poveda Arias", telefono: "52263985", ciudad: "Medallo" },
+        { id: 6, nombre: "Andrea Sandoval", telefono: "52263985", ciudad: "Medallo" },
+        { id: 7, nombre: "Maria Perez", telefono: "52263985", ciudad: "Medallo" },
+        { id: 8, nombre: "Juan Perez", telefono: "52263985", ciudad: "Medallo" },
+        { id: 9, nombre: "Pedro Perez", telefono: "52263985", ciudad: "Medallo" }
     ]
 
-    const[datosApi, setDatosApi] =useState(null);
-    const[estadoCarga, setEstadoCarga] =useState(true);
+    const [datosApi, setDatosApi] = useState(null);
+    const [estadoCarga, setEstadoCarga] = useState(true);
 
-    // Programo el use effect para garantizar que llamara el servicio y voy a traer los datos
+    // Programo el useEffect para garantizar que llamará el servicio y voy a traer los datos
 
-    useEffect(function(){},[
-        function(){
-            //ACA SE LLAMA AL SERVICIO (back)
-            //Se carga la variable de estado con los datos del servicio, y se cambia la variable de estado de la carga
-            setDatosApi(usuarios)
-            setEstadoCarga(false)
-        }
-    ])
-
-    return (
-    <>
-        <br /><br /><br /><br />
-        {
-            console.log(datosApi)
-        }
-        <h3>LISTADO DE USUARIOS</h3>
-        <div className="container">
-            <div className="row row-cols-1 row-cols-md-3 g-3">
-                {/* vamos a pintar una lista de objetos */
-            usuarios.map(function(usuario){
-                return(
-                    <div className="col">
-                        <div className="card h-100 shadow p-5">
-                            <h5>{usuario.nombre}</h5>
-                            <h4>Ciudad: {usuario.ciudad}</h4>
-                        </div>
-                    </div>
-                )
+    useEffect(() => {
+        buscarUsuario()
+            .then(respuestaback => {
+                setDatosApi(respuestaback);
+                setEstadoCarga(false);
             })
-        }
-            </div>
-        </div>
-    </>
-  )
+    }, []); // Esto se pone para garantizar que solo se haga una ves lo que se haga en este useEffect
+
+    if (estadoCarga === true) {
+        return (
+            <>
+                <h3>Estamos cargando...</h3>
+            </>
+        )
+    } else {
+        return (
+            <>
+                <br /><br /><br /><br />
+                <h3>LISTADO DE USUARIOS</h3>
+                <div className="container">
+                    <div className="row row-cols-1 row-cols-md-3 g-3">
+                        {/* vamos a pintar una lista de objetos */}
+                        {setDatosApi.map(usuario => (
+                            <div className="col" key={usuario.id}>
+                                <div className="card h-100 shadow p-5">
+                                    <h5>{usuario.nombre}</h5>
+                                    <h4>Ciudad: {usuario.ciudad}</h4>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </>
+        )
+    }
 }
 
 export default ListadoUsuarios

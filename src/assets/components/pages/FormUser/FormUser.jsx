@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import React from 'react'
+import { registrarUsuario } from '../../../../services/serviciosUsuario.js';
 
 function FormUser() {
 // las variables de estado guardan un valor en la memoria, y cada varible de estado tiene dos componentes, un nombre para leerla y un nombre para escribirla, por lo general es ponerle "nombre de variable. Set nombre de variable"
@@ -12,6 +13,22 @@ function FormUser() {
     const [fechaRegistro, setFechaRegistro] = useState('');
     const [telefonoUsuario, setTelefonoUsuario] = useState('');
 
+    const [formularioEnviado, setFormularioEnviada] = useState(false);
+    const [datosFormulario, setDatosFormulario] = useState("");
+
+    //Use effect para controlar el llamado del api
+
+    useEffect(function(){
+        if(formularioEnviado==true) {
+            console.log('me voy para el back a consumir')
+            // console.log(datosFormulario)
+            .then(function(respuestaBack){
+                console.log(respuestaBack)
+            })
+            setFormularioEnviada(false)
+        }
+    }, [formularioEnviado])
+
     function procesarFormulario(event){
         event.preventDefault(); // Evitar que el formulario se recargue
         let datosUsuario = {
@@ -23,7 +40,8 @@ function FormUser() {
             gechaRegistro: fechaRegistro,
             telefono: telefonoUsuario
         }
-        console.log(datosUsuario); // Para ver los datos que se están enviando al procesar el formulario
+        setDatosFormulario(datosUsuario);
+        setFormularioEnviada(true);
     }
 
   return (
